@@ -38,10 +38,10 @@ bool MainWindow::loadPlugin()
                 return true;
             }else{
                 qDebug() << "FAILED";
-                ui->lineEdit->setText(pluginLoader.errorString());
             }
         }else{
             qDebug() << "plugin instancing failed";
+            qDebug() << "err: " << pluginLoader.errorString();
         }
     }
 

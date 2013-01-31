@@ -23,7 +23,7 @@ public:
     virtual ~QtPluginsInterface() {}
     virtual QString version() = 0;
     virtual QString name() = 0;
-    virtual void setHostInterface(IHostInterface*);
+    virtual void setHostInterface(IHostInterface*) = 0;
 };
 
 Q_DECLARE_INTERFACE(QtPluginsInterface,
