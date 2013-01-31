@@ -16,7 +16,6 @@ bool MainWindow::loadPlugin()
         pluginsDir.cdUp();
     }
 #endif
-    pluginsDir.cdUp();
     pluginsDir.cd("plugins");
     foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
         QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
