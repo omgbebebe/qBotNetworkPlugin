@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu Jan 31 14:51:38 2013
+** Created: Thu Jan 31 17:28:13 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -76,6 +76,10 @@ void *MainWindow::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_MainWindow))
         return static_cast<void*>(const_cast< MainWindow*>(this));
+    if (!strcmp(_clname, "IHostInterface"))
+        return static_cast< IHostInterface*>(const_cast< MainWindow*>(this));
+    if (!strcmp(_clname, "net.wz2100.Plugin.QtPluginsHostInterface/0.0.1"))
+        return static_cast< IHostInterface*>(const_cast< MainWindow*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 

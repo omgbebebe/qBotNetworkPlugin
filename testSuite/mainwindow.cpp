@@ -1,10 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QtCore>
+#include <QDebug>
+#include "../common/qtpluginsinterface.h"
+
+void MainWindow::debug(QString msg)
+{
+    qDebug() << msg;
+}
 
 bool MainWindow::loadPlugin()
 {
+    qDebug() << "try load plugin...";
     QDir pluginsDir(qApp->applicationDirPath());
 #if defined(Q_OS_WIN)
     if (pluginsDir.dirName().toLower() == "debug" || pluginsDir.dirName().toLower() == "release")
@@ -18,12 +25,23 @@ bool MainWindow::loadPlugin()
 #endif
     pluginsDir.cd("plugins");
     foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+        qDebug() << "fund plugin: " << pluginsDir.absoluteFilePath(fileName);
         QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
         if (plugin) {
+            qDebug() << "cast plugin pointer to QtPluginsInterface...";
             qtPluginsInterface = qobject_cast<QtPluginsInterface *>(plugin);
-            if (qtPluginsInterface)
+            if (qtPluginsInterface){
+                qDebug() << "OK";
+                qtPluginsInterface->setHostInterface(qobject_cast<IHostInterface *>(this));
+//                qtPluginsInterface->setHostInterface((this));
                 return true;
+            }else{
+                qDebug() << "FAILED";
+                ui->lineEdit->setText(pluginLoader.errorString());
+            }
+        }else{
+            qDebug() << "plugin instancing failed";
         }
     }
 
@@ -34,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    qDebug() << "starting...";
     ui->setupUi(this);
 
     if (!loadPlugin()) {
@@ -55,3 +74,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+//Q_EXPORT_PLUGIN2(mainwindow, IHostInterface)
