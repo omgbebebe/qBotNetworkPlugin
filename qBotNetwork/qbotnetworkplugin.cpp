@@ -1,7 +1,44 @@
 //#include <QtGui>
 #include <QtPlugin>
+#include <QDataStream>
+#include <QTcpSocket>
 #include "qbotnetworkplugin.h"
 #include "../common/qtpluginsinterface.h"
+
+void QBotNetworkPlugin::readFromSocket()
+{
+    debug(QString("reading message of %1 bytes length").arg(socket->bytesAvailable()));
+    if (socket->bytesAvailable() < 2) // header not received
+        return;
+
+    blockSize = 1;
+    QDataStream in(socket);
+    in.setVersion(QDataStream::Qt_4_0);
+    if (blockSize == 0) {
+
+        in >> blockSize;
+    }
+
+    if (socket->bytesAvailable() < blockSize)
+        return;
+
+    QString msg;
+    in >> msg;
+    debug(QString("received new message: %1").arg(msg));
+//    blockSize = 0;
+}
+
+void QBotNetworkPlugin::clientConnected()
+{
+    debug("new incoming connection");
+    blockSize = 0;
+    socket = tcpServer->nextPendingConnection();
+    if (!socket){
+        debug(QString("can't get socket description: %1").arg(tcpServer->errorString()));
+    }
+    debug("connected");
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readFromSocket()));
+}
 
 void QBotNetworkPlugin::startServer()
 {
@@ -10,6 +47,11 @@ void QBotNetworkPlugin::startServer()
     if (!tcpServer){
         debug("FAILED");
     }
+    QHostAddress hostadd("127.0.0.1");
+    if (!tcpServer->listen(hostadd,5566)) {
+        debug(QString("Unable to start the server: %1.").arg(tcpServer->errorString()));
+    }
+    connect(tcpServer, SIGNAL(newConnection()), this, SLOT(clientConnected()));
     debug("OK");
 }
 

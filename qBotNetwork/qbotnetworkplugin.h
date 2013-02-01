@@ -2,7 +2,8 @@
 #define QBOTNETWORKPLUGIN_H
 
 #include <QObject>
-#include <QtNetwork/QTcpServer>
+#include <QTcpServer>
+#include <QTcpSocket>
 
 #include "../common/qtpluginsinterface.h"
 #include "../common/ihostinterface.h"
@@ -34,9 +35,15 @@ signals:
     
 public slots:
     void startServer();
+private slots:
+    void clientConnected();
+    void readFromSocket();
+
 private:
     IHostInterface *iHost;
     QTcpServer *tcpServer;
+    QTcpSocket *socket;
+    quint16 blockSize;
     void debug(QString);
 };
 
