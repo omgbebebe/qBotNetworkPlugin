@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG   += plugin
-QT       -= network
+QT       += network
 DESTDIR  = ../plugins
 SOURCES  = qbotnetworkplugin.cpp
 HEADERS  = qbotnetworkplugin.h \

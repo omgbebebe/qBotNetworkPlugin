@@ -16,12 +16,19 @@ class MainWindow : public QMainWindow, public IHostInterface
 public:
     explicit MainWindow(QWidget *parent = 0);
     void debug(QString msg);
+    bool actionBuild(UnitId, int, int, int, UnitType) {return true;}
+    bool actionAttack(UnitId, UnitId) {return true;}
+    bool actionStop(UnitId) {return true;}
+
+    QList<Unit*> getUnits();
     ~MainWindow();
     
 private:
     Ui::MainWindow *ui;
     QtPluginsInterface *qtPluginsInterface;
     bool loadPlugin();
+
+    QList<Unit*> units;
 
 public slots:
     void getPluginVersion();

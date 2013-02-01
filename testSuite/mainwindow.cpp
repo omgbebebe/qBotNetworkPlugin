@@ -23,8 +23,10 @@ bool MainWindow::loadPlugin()
         pluginsDir.cdUp();
     }
 #endif
+    pluginsDir.cdUp();
     pluginsDir.cd("plugins");
-    foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+    const QString filter = "lib*.so";
+    foreach (QString fileName, pluginsDir.entryList(QStringList() << filter, QDir::NoDotAndDotDot | QDir::Files)) {
         qDebug() << "fund plugin: " << pluginsDir.absoluteFilePath(fileName);
         QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
@@ -35,6 +37,7 @@ bool MainWindow::loadPlugin()
                 qDebug() << "OK";
                 qtPluginsInterface->setHostInterface(qobject_cast<IHostInterface *>(this));
 //                qtPluginsInterface->setHostInterface((this));
+                qtPluginsInterface->onLoad();
                 return true;
             }else{
                 qDebug() << "FAILED";
@@ -62,6 +65,40 @@ MainWindow::MainWindow(QWidget *parent) :
     }else{
         connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(getPluginVersion()));
     }
+
+    // fill list of units
+    Unit *u1 = new Unit;
+    u1->id = 1;
+    u1->x = 10;
+    u1->y = 11;
+    u1->z = 0;
+    u1->health = 100;
+    u1->lastAttacked = -1;
+    u1->t = DR_CONSTRUCT;
+//    QList<Equipment> eqs;
+    u1->eqs.append(BODY_VIPER);
+    u1->eqs.append(PROP_WHEELED);
+    u1->eqs.append(EQ_TRUCK);
+
+    Unit *u2 = new Unit;
+    u2->id = 3;
+    u2->x = 20;
+    u2->y = 21;
+    u2->z = 0;
+    u2->health = 100;
+    u2->lastAttacked = -1;
+    u2->t = DR_CONSTRUCT;
+    u2->eqs.append(BODY_VIPER);
+    u2->eqs.append(PROP_WHEELED);
+    u2->eqs.append(EQ_TRUCK);
+
+    units.append(u1);
+    units.append(u2);
+}
+
+QList<Unit*> MainWindow::getUnits()
+{
+    return units;
 }
 
 void MainWindow::getPluginVersion()
