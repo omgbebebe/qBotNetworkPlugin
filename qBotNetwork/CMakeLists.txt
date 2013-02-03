@@ -8,10 +8,10 @@ FIND_PACKAGE(Qt4 REQUIRED)
 #SET (LIBRARY_OUTPUT_PATH ${QBotNetwork_BINARY_DIR}/plugins/)
 
 list(APPEND HEADERS ${PROJECT_SOURCE_DIR}/../common/qtpluginsinterface.h ${PROJECT_SOURCE_DIR}/../common/ihostinterface.h)
-list(APPEND Q_HEADERS ${PROJECT_SOURCE_DIR}/qbotnetworkplugin.h)
+list(APPEND Q_HEADERS ${PROJECT_SOURCE_DIR}/qbotnetworkplugin.h json.h)
 
 #list(APPEND SOURCES ${PROJECT_SOURCE_DIR}/../../../../k095-common/zutils.cpp)
-list(APPEND Q_SOURCES ${PROJECT_SOURCE_DIR}/qbotnetworkplugin.cpp)
+list(APPEND Q_SOURCES ${PROJECT_SOURCE_DIR}/qbotnetworkplugin.cpp json.cpp)
 
 qt4_wrap_cpp(MOC_SOURCES ${Q_HEADERS})
 qt4_automoc(${Q_SOURCES})

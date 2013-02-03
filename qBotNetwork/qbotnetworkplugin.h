@@ -4,15 +4,16 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QMap>
 
 #include "../common/qtpluginsinterface.h"
-#include "../common/ihostinterface.h"
 
-class QBotNetworkPlugin : public QObject, QtPluginsInterface
+class QBotNetworkPlugin : public QObject, IPluginInterface
 {
     Q_OBJECT
-    Q_INTERFACES(QtPluginsInterface)
+    Q_INTERFACES(IPluginInterface)
 public:
+    QBotNetworkPlugin();
     //    QBotNetworkPlugin(IHostInterface *host) : iHost (host) {}
     QString version();
     QString name();
@@ -24,10 +25,10 @@ public:
     void onStart() {}
     void onEnd(bool) {}
     void onFrame() {}
-    void onUnitAttacked(Unit*) {}
-    void onUnitDiscover(Unit*) {}
-    void onUnitEvade(Unit*) {}
-    void onUnitDestroy(Unit*) {}
+    void onUnitAttacked(UnitId) {}
+    void onUnitDiscover(UnitId) {}
+    void onUnitEvade(UnitId) {}
+    void onUnitDestroy(UnitId) {}
     void onResearchComplete(UnitId) {}
     void onProductionComplete(UnitId) {}
 
@@ -37,14 +38,22 @@ public slots:
     void startServer();
 private slots:
     void clientConnected();
+    void clientDisconnected();
     void readFromSocket();
 
 private:
+    quint16 apiMagic;
     IHostInterface *iHost;
     QTcpServer *tcpServer;
     QTcpSocket *socket;
+    QDataStream *in;
+    QDataStream *out;
     quint16 blockSize;
-    void debug(QString);
+    QMap<QString, quint8> cmds;
+    void dbg(QString);
+    QVariantMap parseJSON(QString json);
+    QVariantMap toVariantMap(const Unit *u);
+    void send(QByteArray *msg);
 };
 
 #endif // QBOTNETWORKPLUGIN_H

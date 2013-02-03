@@ -15,20 +15,20 @@ class MainWindow : public QMainWindow, public IHostInterface
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void debug(QString msg);
+    void dbg(QString msg);
     bool actionBuild(UnitId, int, int, int, UnitType) {return true;}
     bool actionAttack(UnitId, UnitId) {return true;}
     bool actionStop(UnitId) {return true;}
 
-    QList<Unit*> getUnits();
+    QList<Unit> getUnits();
     ~MainWindow();
     
 private:
     Ui::MainWindow *ui;
-    QtPluginsInterface *qtPluginsInterface;
+    IPluginInterface *iPluginInterface;
     bool loadPlugin();
 
-    QList<Unit*> units;
+    QList<Unit> units;
 
 public slots:
     void getPluginVersion();

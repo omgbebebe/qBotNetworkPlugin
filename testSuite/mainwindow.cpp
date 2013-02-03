@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "../common/qtpluginsinterface.h"
 
-void MainWindow::debug(QString msg)
+void MainWindow::dbg(QString msg)
 {
     qDebug() << msg;
 }
@@ -31,13 +31,13 @@ bool MainWindow::loadPlugin()
         QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
         if (plugin) {
-            qDebug() << "cast plugin pointer to QtPluginsInterface...";
-            qtPluginsInterface = qobject_cast<QtPluginsInterface *>(plugin);
-            if (qtPluginsInterface){
+            qDebug() << "cast plugin pointer to IPluginInterface...";
+            iPluginInterface = qobject_cast<IPluginInterface *>(plugin);
+            if (iPluginInterface){
                 qDebug() << "OK";
-                qtPluginsInterface->setHostInterface(qobject_cast<IHostInterface *>(this));
+                iPluginInterface->setHostInterface(qobject_cast<IHostInterface *>(this));
 //                qtPluginsInterface->setHostInterface((this));
-                qtPluginsInterface->onLoad();
+                iPluginInterface->onLoad();
                 return true;
             }else{
                 qDebug() << "FAILED";
@@ -67,43 +67,43 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     // fill list of units
-    Unit *u1 = new Unit;
-    u1->id = 1;
-    u1->x = 10;
-    u1->y = 11;
-    u1->z = 0;
-    u1->health = 100;
-    u1->lastAttacked = -1;
-    u1->t = DR_CONSTRUCT;
+    Unit u1;
+    u1.id = 1;
+    u1.x = 10;
+    u1.y = 11;
+    u1.z = 0;
+    u1.health = 100;
+    u1.lastAttacked = -1;
+    u1.t = DR_CONSTRUCT;
 //    QList<Equipment> eqs;
-    u1->eqs.append(BODY_VIPER);
-    u1->eqs.append(PROP_WHEELED);
-    u1->eqs.append(EQ_TRUCK);
+    u1.eqs.append(BD_VIPER);
+    u1.eqs.append(PR_WHEELED);
+    u1.eqs.append(EQ_TRUCK);
 
-    Unit *u2 = new Unit;
-    u2->id = 3;
-    u2->x = 20;
-    u2->y = 21;
-    u2->z = 0;
-    u2->health = 100;
-    u2->lastAttacked = -1;
-    u2->t = DR_CONSTRUCT;
-    u2->eqs.append(BODY_VIPER);
-    u2->eqs.append(PROP_WHEELED);
-    u2->eqs.append(EQ_TRUCK);
+    Unit u2;
+    u2.id = 3;
+    u2.x = 20;
+    u2.y = 21;
+    u2.z = 0;
+    u2.health = 100;
+    u2.lastAttacked = -1;
+    u2.t = DR_CONSTRUCT;
+    u2.eqs.append(BD_VIPER);
+    u2.eqs.append(PR_WHEELED);
+    u2.eqs.append(EQ_TRUCK);
 
     units.append(u1);
     units.append(u2);
 }
 
-QList<Unit*> MainWindow::getUnits()
+QList<Unit> MainWindow::getUnits()
 {
     return units;
 }
 
 void MainWindow::getPluginVersion()
 {
-    QString text = qtPluginsInterface->version();
+    QString text = iPluginInterface->version();
     ui->lineEdit->setText(text);
 }
 
