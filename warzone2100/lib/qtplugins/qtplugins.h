@@ -5,7 +5,8 @@
 #include <QList>
 #include <QString>
 
-#define PLUGINS_INTERFACE_VERSION "net.wz2100.Plugin.IHostInterface/0.0.2"
+#define PLUGINS_INTERFACE_VERSION "net.wz2100.Plugins.IPluginInterface/0.0.2"
+#define IHOST_INTERFACE_VERSION "net.wz2100.Plugins.IHostInterface/0.0.2"
 
 class QtPluginsEngine;
 extern QtPluginsEngine* qtPlugins;
@@ -23,7 +24,7 @@ public:
     virtual void dbg(QString msg) = 0;
 };
 
-Q_DECLARE_INTERFACE(IHostInterface, PLUGINS_INTERFACE_VERSION);
+Q_DECLARE_INTERFACE(IHostInterface, IHOST_INTERFACE_VERSION);
 
 class IPluginInterface
 {

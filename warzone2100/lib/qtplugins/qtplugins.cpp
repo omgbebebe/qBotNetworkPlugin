@@ -73,7 +73,7 @@ bool QtPluginsEngine::loadPlugin()
 
 void QtPluginsEngine::dbg(QString msg)
 {
-    debug(LOG_SCRIPT, msg.toLatin1());
+    debug(LOG_INFO, msg.toLatin1());
     return;
 }
 

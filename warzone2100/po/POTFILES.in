@@ -208,6 +208,7 @@ lib/qtgame/main_qt.cpp
 lib/qtgame/qtgame.cpp
 lib/qtgame/swapinterval.cpp
 lib/qtgame/wzapp_qt.cpp
+lib/qtplugins/qtplugins.cpp
 lib/script/codeprint.cpp
 lib/script/event.cpp
 lib/script/eventsave.cpp

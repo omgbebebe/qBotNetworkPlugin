@@ -9,6 +9,8 @@
 #include "../warzone2100/lib/qtplugins/qtpluginsinterface.h"
 #include "json.h"
 
+Q_PLUGIN_METADATA(IID PLUGINS_INTERFACE_VERSION)
+
 #define MAX_BUFF_SIZE 1024
 #define MAX_MSG_LENGTH 65535
 #define API_VERSION "0.0.1"

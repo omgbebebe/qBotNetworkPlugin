@@ -11,7 +11,7 @@
 class QBotNetworkPlugin : public QObject, IPluginInterface
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "ru.3712.warzone.plugins.QBotNetworkPlugin" FILE "QBotNetworkPlugin.json")
+    Q_PLUGIN_METADATA(IID PLUGINS_INTERFACE_VERSION FILE "QBotNetworkPlugin.json")
     Q_INTERFACES(IPluginInterface)
 public:
     QBotNetworkPlugin();
