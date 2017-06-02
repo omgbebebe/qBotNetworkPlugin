@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "../common/qtpluginsinterface.h"
+#include "../warzone2100/lib/qtplugins/qtpluginsinterface.h"
 
 namespace Ui {
 class MainWindow;

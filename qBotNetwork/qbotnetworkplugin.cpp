@@ -1,12 +1,12 @@
 //#include <QtGui>
-#include <QtPlugin>
+//#include <QtPlugin>
 #include <QDataStream>
 #include <QTcpSocket>
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptEngine>
 #include <QMap>
 #include "qbotnetworkplugin.h"
-#include "../common/qtpluginsinterface.h"
+#include "../warzone2100/lib/qtplugins/qtpluginsinterface.h"
 #include "json.h"
 
 #define MAX_BUFF_SIZE 1024
@@ -151,10 +151,10 @@ void QBotNetworkPlugin::clientConnected()
     connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
 //    in = new QDataStream(socket, QIODevice::ReadOnly);
     in = new QDataStream(socket);
-    in->setVersion(QDataStream::Qt_4_0);
+    in->setVersion(QDataStream::Qt_5_0);
 //    out = new QDataStream(socket, QIODevice::WriteOnly);
     out = new QDataStream(socket);
-    out->setVersion(QDataStream::Qt_4_0);
+    out->setVersion(QDataStream::Qt_5_0);
 }
 
 void QBotNetworkPlugin::startServer()
@@ -201,4 +201,4 @@ QString QBotNetworkPlugin::name()
     return "BotNetwork interface";
 }
 
-Q_EXPORT_PLUGIN2(qbotnetworkplugin, QBotNetworkPlugin)
+//Q_EXPORT_PLUGIN2(qbotnetworkplugin, QBotNetworkPlugin)

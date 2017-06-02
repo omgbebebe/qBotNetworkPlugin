@@ -22,7 +22,11 @@ cmake_minimum_required(VERSION 2.8)
 set(PROJECT TestSuite)
 project(${PROJECT})
 
-FIND_PACKAGE(Qt4 REQUIRED)
+#find_package (Qt5 COMPONENTS Widgets) 
+
+#FIND_PACKAGE(Qt5 REQUIRED)
+#find_package(Qt5 COMPONENTS QtGui QtCore QtNetwork QtScript REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Core Network Script REQUIRED)
 
 #SET (LIBRARY_OUTPUT_PATH ${QBotNetwork_BINARY_DIR}/plugins/)
 
@@ -33,11 +37,10 @@ list(APPEND Q_HEADERS ${PROJECT_SOURCE_DIR}/mainwindow.h )
 list(APPEND Q_SOURCES ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/mainwindow.cpp)
 list(APPEND Q_FORMS ${PROJECT_SOURCE_DIR}/mainwindow.ui)
 
-qt4_wrap_ui(Q_FORMS_HEADERS ${Q_FORMS})
-qt4_wrap_cpp(MOC_SOURCES ${Q_HEADERS})
-qt4_automoc(${Q_SOURCES})
+qt5_wrap_ui(Q_FORMS_HEADERS ${Q_FORMS})
+qt5_wrap_cpp(MOC_SOURCES ${Q_HEADERS})
+qt5_automoc(${Q_SOURCES})
 
-find_package(Qt4 COMPONENTS QtGui QtCore QtNetwork QtScript REQUIRED)
 include(${QT_USE_FILE})
 
 include_directories(${PROJECT_SOURCE_DIR}/../commoni ${CMAKE_CURRENT_BINARY_DIR} )

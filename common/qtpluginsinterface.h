@@ -1,1 +1,0 @@
-../../test/warzone2100/lib/qtplugins/qtpluginsinterface.h
