@@ -1,0 +1,12 @@
+//cam3-4X.SLO
+
+/* ********************	*/
+/* Declared Variables 	*/
+/* ********************	*/
+
+public		int		timeLimit;
+
+event start(CALL_GAMEINIT)
+{
+		setMissionTime(timeLimit);
+}
