@@ -7,8 +7,10 @@ This plugin use couple headers from main Warzone reposition. You can copy it fro
 
 ```sh
 git remote add -f wz git@github.com:omgbebebe/warzone2100.git
-git subtree add --prefix warzone2100 wz --squash
+git merge -s subtree --squash wz/master
 ```
+
+Now you can commit to both repos from one place.
 
 # Build
 The `shell.nix` derivation has been prepared for your convenience. You can gather all dependencies and build tools by hand or just type `nix-shell ./warzone2100/shell.nix`. It will drop you to preconfigured development environment. Then build it as usual.
